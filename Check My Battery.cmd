@@ -1,6 +1,6 @@
 @echo off
-title Battery Health Check
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0BatteryHealthCheck.ps1"
+title Battery Butler
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0BatteryButler.ps1"
 if errorlevel 1 (
   echo.
   pause

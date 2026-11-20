@@ -1,7 +1,7 @@
 #requires -Version 5.1
 <#
 .SYNOPSIS
-    Battery Health Check - runs the Windows battery report and explains it in plain English.
+    Battery Butler - runs the Windows battery report and explains it in plain English.
 
 .DESCRIPTION
     Runs "powercfg /batteryreport", reads the results and creates an easy-to-read web page
@@ -13,7 +13,7 @@
     instead of creating a new one - for example a report copied from another laptop.
 
 .PARAMETER OutputFolder
-    Where to save the summary. Default: Documents\Battery Health Reports
+    Where to save the summary. Default: Documents\Battery Butler Reports
 
 .PARAMETER NoOpen
     Do not open the summary in the browser when finished.
@@ -341,11 +341,11 @@ function Get-ChargeLimitHelp([string]$maker) {
 
 try {
     Write-Host ''
-    Write-Host '  Battery Health Check' -ForegroundColor Cyan
-    Write-Host '  --------------------' -ForegroundColor Cyan
+    Write-Host '  Battery Butler, at your service' -ForegroundColor Cyan
+    Write-Host '  -------------------------------' -ForegroundColor Cyan
 
     if (-not $OutputFolder) {
-        $OutputFolder = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Battery Health Reports'
+        $OutputFolder = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'Battery Butler Reports'
     }
     New-Item -ItemType Directory -Force -Path $OutputFolder | Out-Null
     $stamp = Get-Date -Format 'yyyy-MM-dd_HHmm'
@@ -984,6 +984,7 @@ body{margin:0;background:var(--page);color:var(--ink);font:16px/1.6 system-ui,-a
 a{color:var(--accent)}
 .wrap{max-width:860px;margin:0 auto;padding:32px 16px 64px}
 header h1{font-size:32px;line-height:1.2;margin:0 0 4px;letter-spacing:-0.01em}
+header .tagline{font-size:18px;margin:0 0 6px}
 header .sub{color:var(--ink2);margin:0 0 6px}
 header nav{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;margin-top:14px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin:18px 0}
@@ -1107,7 +1108,7 @@ footer{color:var(--muted);font-size:13px;text-align:center;margin-top:24px}
 <head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<title>Battery Health Check</title>
+<title>Battery Butler</title>
 <style>
 $css
 </style>
@@ -1115,7 +1116,8 @@ $css
 <body>
 <div class='wrap'>
 <header>
-  <h1>Battery Health Check</h1>
+  <h1>Battery Butler</h1>
+  <p class='tagline'>Your laptop battery, explained in plain English.</p>
   <p class='sub'>$subtitle</p>
   <nav><a href='#health'>Health</a><a href='#recent'>Recent use</a><a href='#drain'>Battery drain</a><a href='#history'>Usage history</a><a href='#capacity'>Wear over time</a><a href='#life'>Battery life</a><a href='#advice'>Advice</a><a href='#glossary'>Jargon buster</a></nav>
 </header>
@@ -1133,7 +1135,7 @@ $js
 </html>
 "@
 
-    $outFile = Join-Path $OutputFolder "Battery Health Check $stamp.html"
+    $outFile = Join-Path $OutputFolder "Battery Butler $stamp.html"
     [IO.File]::WriteAllText($outFile, $html, (New-Object System.Text.UTF8Encoding($true)))
     if ($tempXml -and (Test-Path -LiteralPath $tempXml)) { Remove-Item -LiteralPath $tempXml -Force }
 

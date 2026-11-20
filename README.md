@@ -1,10 +1,12 @@
-# Battery Health Check
+# Battery Butler
 
-A small Windows app that runs the built-in battery report (`powercfg /batteryreport`) and turns it into an easy-to-read page for people who aren't technical.
+**Your laptop battery, explained in plain English.**
 
-It tells you how healthy your laptop battery is, how you've been using it, how long a full charge lasts, and what you can do to make the battery last longer. Everything is explained in plain English.
+Battery Butler is a small Windows app that runs the built-in battery report (`powercfg /batteryreport`) and turns it into an easy-to-read page for people who aren't technical.
 
-**[Download the latest version](https://github.com/bazzacollins/battery-health-check/releases/latest)**
+It tells you how healthy your laptop battery is, how you've been using it, how long a full charge lasts, and what you can do to make the battery last longer. There's no jargon, and a jargon buster explains the few technical words it has to use.
+
+**[Download the latest version](https://github.com/bazzacollins/battery-butler/releases/latest)**
 
 ## What you need
 
@@ -13,12 +15,12 @@ It tells you how healthy your laptop battery is, how you've been using it, how l
 
 ## How to install it (easiest)
 
-1. Go to the [latest release](https://github.com/bazzacollins/battery-health-check/releases/latest) and download **BatteryHealthCheck-Setup.exe**.
+1. Go to the [latest release](https://github.com/bazzacollins/battery-butler/releases/latest) and download **BatteryButler-Setup.exe**.
 2. Double-click it and follow the steps.
 3. If Windows says **"Windows protected your PC"**, click **More info**, then **Run anyway**. This appears because the installer isn't digitally signed, not because anything is wrong.
-4. Open **Battery Health Check** from the Start menu (or the desktop shortcut).
+4. Open **Battery Butler** from the Start menu (or the desktop shortcut).
 
-To remove it, go to **Settings > Apps > Installed apps**, find **Battery Health Check** and choose **Uninstall**. Your saved summaries stay in your Documents folder.
+To remove it, go to **Settings > Apps > Installed apps**, find **Battery Butler** and choose **Uninstall**. Your saved summaries stay in your Documents folder.
 
 ## How to use it without installing
 
@@ -29,11 +31,11 @@ To remove it, go to **Settings > Apps > Installed apps**, find **Battery Health 
 
 ## Where your summaries are saved
 
-Each summary is saved in **Documents\Battery Health Reports**, with a date and time in its name. Windows' own technical report is saved next to it, and the summary links to it at the bottom.
+Each summary is saved in **Documents\Battery Butler Reports**, with a date and time in its name. Windows' own technical report is saved next to it, and the summary links to it at the bottom.
 
 ## Your privacy
 
-Battery Health Check works entirely on your own PC. It doesn't connect to the internet, and it doesn't send your battery information anywhere.
+Battery Butler works entirely on your own PC. It doesn't connect to the internet, and it doesn't send your battery information anywhere.
 
 The saved summary includes your computer's name and model, so think about that before you share it with anyone.
 
@@ -55,32 +57,36 @@ The summary ends with a jargon buster that explains terms like *design capacity*
 
 Your battery estimates how much charge it can hold, and it only checks that estimate properly when it goes from nearly empty to completely full. If you haven't done that for a long time, the health figure can jump (usually downwards) after the next full charge. The newer figure is normally the more accurate one. If your battery is nearly empty when you run the check, the summary warns you about this.
 
+## Upgrading from Battery Health Check
+
+Battery Butler used to be called **Battery Health Check**. If you have the old version installed, just run the new installer: it replaces the old version and its shortcuts. Summaries made by the old version stay in **Documents\Battery Health Reports**.
+
 ## Advanced options
 
 Run from PowerShell:
 
 ```powershell
 # Explain a report that was saved earlier, for example one copied from another laptop
-.\BatteryHealthCheck.ps1 -XmlPath "C:\path\to\battery-report.xml"
+.\BatteryButler.ps1 -XmlPath "C:\path\to\battery-report.xml"
 
 # Save the summary somewhere else, and don't open it automatically
-.\BatteryHealthCheck.ps1 -OutputFolder "D:\Reports" -NoOpen
+.\BatteryButler.ps1 -OutputFolder "D:\Reports" -NoOpen
 ```
 
 To make an XML report on another laptop, run `powercfg /batteryreport /xml` there. The HTML version of the report can't be read by this app.
 
 ## Rebuilding the installer
 
-The `installer` folder holds everything needed to rebuild `BatteryHealthCheck-Setup.exe` after you change the app:
+The `installer` folder holds everything needed to rebuild `BatteryButler-Setup.exe` after you change the app:
 
-- `BatteryHealthCheck.iss` is the [Inno Setup](https://jrsoftware.org/isinfo.php) script.
+- `BatteryButler.iss` is the [Inno Setup](https://jrsoftware.org/isinfo.php) script.
 - `battery.ico` is the app icon. `make-icon.ps1` redraws it.
 
 To rebuild, install Inno Setup 7, open PowerShell in the `installer` folder and run:
 
 ```powershell
-& "$env:LOCALAPPDATA\Programs\Inno Setup 7\ISCC.exe" "/O$env:TEMP\bhc-build" BatteryHealthCheck.iss
-Copy-Item "$env:TEMP\bhc-build\BatteryHealthCheck-Setup.exe" .. -Force
+& "$env:LOCALAPPDATA\Programs\Inno Setup 7\ISCC.exe" "/O$env:TEMP\bb-build" BatteryButler.iss
+Copy-Item "$env:TEMP\bb-build\BatteryButler-Setup.exe" .. -Force
 ```
 
 If you installed Inno Setup for all users, its path is `C:\Program Files\Inno Setup 7\ISCC.exe` instead.
@@ -89,4 +95,4 @@ The installer is built in a temporary folder and then copied back, because build
 
 ## Licence
 
-Battery Health Check is free to use, change and share under the [MIT licence](LICENSE).
+Battery Butler is free to use, change and share under the [MIT licence](LICENSE). Copyright (c) 2026 Barry Collins.
