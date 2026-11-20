@@ -86,3 +86,7 @@ Copy-Item "$env:TEMP\bhc-build\BatteryHealthCheck-Setup.exe" .. -Force
 If you installed Inno Setup for all users, its path is `C:\Program Files\Inno Setup 7\ISCC.exe` instead.
 
 The installer is built in a temporary folder and then copied back, because building it directly inside a folder synced by OneDrive can fail while OneDrive is syncing. If you change the app, also raise `AppVersion` in the `.iss` file so the new installer upgrades the old one.
+
+## Licence
+
+Battery Health Check is free to use, change and share under the [MIT licence](LICENSE).
